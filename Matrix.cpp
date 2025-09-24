@@ -2,7 +2,9 @@
 #include "Matrix.hpp"
 #include <vector>
 #include <iostream>
+#include <algorithm>
 
+using namespace std;
 // REQUIRES: mat points to a Matrix
 //           0 < width && 0 < height
 // MODIFIES: *mat
@@ -97,12 +99,12 @@ void Matrix_fill_border(Matrix* mat, int value) {
   int height = mat->height;
   int width = mat->width;
 
-  for (int col = 0; col < width; ++c) {
+  for (int col = 0; col < width; ++col) {
     *Matrix_at(mat, 0, col) = value;
     *Matrix_at(mat, height - 1, col) = value;
   }
 
-  for (int row = 0; row < height; ++r) {
+  for (int row = 0; row < height; ++row) {
     *Matrix_at(mat, row, 0) = value;
     *Matrix_at(mat, row, width - 1) = value;
   }
@@ -112,7 +114,7 @@ void Matrix_fill_border(Matrix* mat, int value) {
 // EFFECTS:  Returns the value of the maximum element in the Matrix
 int Matrix_max(const Matrix* mat) {
   assert(mat != nullptr);
-  return max_element(mat->data.begin(), mat->data.end());
+  return *max_element(mat->data.begin(), mat->data.end());
 }
 
 // REQUIRES: mat points to a valid Matrix
@@ -132,10 +134,10 @@ int Matrix_column_of_min_value_in_row(const Matrix* mat, int row,
   assert(0 <= column_start && column_start < column_end);
   assert(column_end <= mat->width);
 
-  int min = *Matrix_at(mat, row, start);
-  int min_col = start;
+  int min = *Matrix_at(mat, row, column_start);
+  int min_col = column_start;
 
-  for (int col = start + 1; col < end; c++) {
+  for (int col = column_start + 1; col < column_end; col++) {
     int val = *Matrix_at(mat, row, col);
     if (val < min) {
       min = val;

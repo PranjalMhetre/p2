@@ -96,6 +96,7 @@ Pixel Image_get_pixel(const Image* img, int row, int column) {
   const int* g = Matrix_at(&img->green_channel, row, column);
   const int* b = Matrix_at(&img->blue_channel, row, column);
   Pixel p = {*r, *g, *b};
+  return p;
 }
 
 // REQUIRES: img points to a valid Image
