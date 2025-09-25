@@ -28,6 +28,7 @@ void Matrix_init(Matrix* mat, int width, int height) {
 //           by a newline. This means there will be an "extra" space at
 //           the end of each line.
 void Matrix_print(const Matrix* mat, std::ostream& os) {
+  os<<mat->width << " " << mat->height << "\n";
   for (int row = 0; row < mat->height; row++) {
     for (int col = 0; col < mat->width; col++) {
         os << *Matrix_at(mat, row, col) << " ";
