@@ -64,7 +64,7 @@ void Image_init(Image* img, std::istream& is) {
 //           "extra" space at the end of each line. See the project spec
 //           for an example.
 void Image_print(const Image* img, std::ostream& os) {
-  os << "P3 \n" << img->width << " " << img->height << "\n 255 \n";
+  os << "P3\n" << img->width << " " << img->height << "\n255\n";
   for (int i = 0; i < img->height; i++) {
     for (int j = 0; j < img->width; j++) {
       Pixel p = Image_get_pixel(img, i, j);

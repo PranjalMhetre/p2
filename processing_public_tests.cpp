@@ -43,7 +43,7 @@ static void test_all(const string &prefix, const vector<int> &sizes, int num_siz
   compute_energy_matrix(&img, &energy);
   test_energy(&energy, prefix);
 
-  // Test cost
+  // Test costx
   Matrix  cost;
   compute_vertical_cost_matrix(&energy, &cost);
   test_cost(&cost, prefix);

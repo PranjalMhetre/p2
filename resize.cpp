@@ -30,9 +30,12 @@ int main(int argc, char* argv[]) {
         output_height = img_height;
     }
     // check if the literal strings were supposed to be replaced with variables
-    if (output_width < 0 || output_width > img_width || output_height < 0 || output_height > img_height) {
-        cout << "Usage: resize.exe " << file_name << output_name << output_width << output_height << "\n"
-        << output_width << " and " << output_height << " must be less than or equal to original" << endl;
+    if (output_width < 0 || output_width > img_width || output_height < 0 
+        || output_height > img_height) {
+        cout << "Usage: resize.exe " << file_name << output_name 
+        << output_width << output_height << "\n"
+        << output_width << " and " << output_height 
+        << " must be less than or equal to original" << endl;
         return 1;
     }
 
