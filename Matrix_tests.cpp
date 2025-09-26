@@ -18,8 +18,8 @@ TEST(test_fill_basic) {
   Matrix_init(&mat, 3, 5);
   Matrix_fill(&mat, value);
 
-  for(int r = 0; r < height; ++r){
-    for(int c = 0; c < width; ++c){
+  for(int r = 0; r < height; r++){
+    for(int c = 0; c < width; c++){
       ASSERT_EQUAL(*Matrix_at(&mat, r, c), value);
     }
   }
@@ -36,8 +36,8 @@ TEST(test_init) {
   ASSERT_EQUAL(Matrix_width(&mat), 1);
   ASSERT_EQUAL(Matrix_height(&mat), 2);
 
-  for(int r = 0; r < height; ++r){
-    for(int c = 0; c < width; ++c){
+  for(int r = 0; r < height; r++){
+    for(int c = 0; c < width; c++){
       ASSERT_EQUAL(*Matrix_at(&mat, r, c), 0);
     }
   }
@@ -106,6 +106,18 @@ TEST(test_min_value_in_row) {
 
   ASSERT_EQUAL(Matrix_min_value_in_row(&mat, 0, 0, 4), 3);
 }
+//this test checks if the min value in row function returns the correct minimum value
+TEST(test_min_value_in_row_negative) {
+  Matrix mat;
+  Matrix_init(&mat, 4, 1);
+  *Matrix_at(&mat, 0, 0) = -1;
+  *Matrix_at(&mat, 0, 1) = 3;
+  *Matrix_at(&mat, 0, 2) = 6;
+  *Matrix_at(&mat, 0, 3) = 7;
+
+  ASSERT_EQUAL(Matrix_min_value_in_row(&mat, 0, 0, 4), -1);
+}
+
 //this test checks if the const matrix at function returns the correct value
 TEST(test_const_matrix_at) {
   Matrix mat;
@@ -115,6 +127,46 @@ TEST(test_const_matrix_at) {
   const Matrix *cons = &mat;
   ASSERT_EQUAL(*Matrix_at(cons, 1, 1), 12);
 }
+
+//this test checks if the print function prints the matrix correctly
+TEST(test_matrix_print) {
+    Matrix mat;
+    Matrix_init(&mat, 1, 1);
+    *Matrix_at(&mat, 0, 0) = 42;
+    ostringstream expected;
+    expected << "1 1\n42 \n";
+    ostringstream actual;
+    Matrix_print(&mat, actual);
+    ASSERT_EQUAL(expected.str(), actual.str());
+}
+//this test checks if the matrix is initialized properly (large))
+TEST(test_init_large) {
+  Matrix mat;
+  Matrix_init(&mat, 100, 2000);
+  
+  int width = Matrix_width(&mat);
+  int height = Matrix_height(&mat);
+
+  ASSERT_EQUAL(Matrix_width(&mat), 100);
+  ASSERT_EQUAL(Matrix_height(&mat), 2000);
+
+  for(int r = 0; r < height; ++r){
+    for(int c = 0; c < width; ++c){
+      ASSERT_EQUAL(*Matrix_at(&mat, r, c), 0);
+    }
+  }
+}
+//this test checks if the max function returns the correct max value when all values are negative
+TEST(test_max_all_negative) {
+  Matrix mat;
+  Matrix_init(&mat, 2, 2);
+  *Matrix_at(&mat, 0, 0) = -5;
+  *Matrix_at(&mat, 0, 1) = -3;
+  *Matrix_at(&mat, 1, 0) = -7;
+  *Matrix_at(&mat, 1, 1) = -10;
+  ASSERT_EQUAL(Matrix_max(&mat), -3);
+}
+
 
 // ADD YOUR TESTS HERE
 // You are encouraged to use any functions from Matrix_test_helpers.hpp as needed.
