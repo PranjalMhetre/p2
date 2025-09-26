@@ -90,8 +90,9 @@ void compute_energy_matrix(const Image* img, Matrix* energy) {
   int height = Image_height(img);
   int width = Image_width(img);
   int max = 0;
-
-  Matrix_init(energy, height, width);
+  
+  // Matrix_init expects (width, height)
+  Matrix_init(energy, width, height);
   Matrix_fill(energy, 0);
 
   for(int row = 1; row < height - 1; row++){
@@ -133,7 +134,8 @@ void compute_vertical_cost_matrix(const Matrix* energy, Matrix *cost) {
   int height = Matrix_height(energy);
   int width = Matrix_width(energy);
 
-  Matrix_init(cost, height, width);
+  // Matrix_init expects (width, height)
+  Matrix_init(cost, width, height);
 
   for (int col = 0; col < width; col++) {
         *Matrix_at(cost, 0, col) = *Matrix_at(energy, 0, col);
